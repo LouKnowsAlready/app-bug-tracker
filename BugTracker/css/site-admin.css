@@ -1,0 +1,416 @@
+body{
+	background-color: #23314b;
+	font-family: Helvetica;
+	color: #404040;
+	min-height: 100vh;
+}
+
+body a{
+	text-decoration: none;
+	color: blue;
+	cursor: pointer;
+}
+
+.site-container{
+	margin: 0 auto;
+	width: 80%;
+	padding: 40px;
+	min-height: 100%;
+	background-color: #f0f0f0;	
+}
+
+#intro{
+	margin-bottom: 50px;
+}
+
+#intro h1{
+	color: #ff5050;
+}
+
+#menu{
+	display: flex;
+}
+
+.admin-options{
+	width: 15%;
+}
+
+.admin-options > a{
+	width: 80%;
+	border-style: solid;
+	border-color: #b3b3b3;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	padding: 5px;
+	background-color: white;
+}
+
+.admin-options img{
+	width: 70%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.admin-options p{
+	text-align: center;
+	color: #404040;
+}
+
+#option-content{
+	border: 2px solid rgb(179, 179, 179, 0.5);
+	margin-top: 20px;
+	min-height: 100%;
+}
+
+#cont-header{
+	background-image: linear-gradient(to right, #b3daff, white);
+	padding: 10px;
+	border-bottom: 1px solid rgb(179, 179, 179, 0.5);
+}
+
+#cont-body{
+	padding: 10px;
+	background-color: white;	
+}
+
+#cont-body > p{
+	color: #ff5050;
+	text-align: center;
+}
+
+
+#del-users-page table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#del-users-page tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#del-users-page th, td {
+	padding: 15px;
+	text-align: left;
+}
+
+#admin-form-container{
+	width: 50%;
+	margin-bottom: 20px;
+}
+
+#admin-form input[type=text], input[type=password]{
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+}
+
+#admin-form input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/********** Begin - Error message **********/
+
+/* The alert message box */
+.alert {
+  padding: 10px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 90%;
+  font-family: arial;
+  text-align: center;
+}
+
+.success {
+  padding: 10px;
+  background-color: #4caf50; /* Green */
+  color: white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 90%;
+  font-family: arial;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+/********** End   - Error message **********/
+
+
+
+/******** Delete App Lightbox **************/
+
+#delete-app-lightbox{
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	min-height: 100vh;
+	opacity: 0;
+	visibility: hidden;
+
+	transition: all ease-in 300ms;
+}
+
+
+#delete-app-lightbox-content{
+	background-color: #fff;
+	border: 2px solid #e60000;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	position: absolute;
+	left: 50%;
+	width: 300px;
+	min-height: 200px;
+
+	margin-left: -150px;
+
+	transform: translate(0,-200%);
+	transition: transform 200ms ease-out;
+}
+
+.top {
+  padding: 10px;
+  background-color: #cc0000;
+  text-align: center;
+  color: #f2f2f2;
+}
+
+.content-alert {
+  padding: 20px;
+}
+
+#delete-app-lightbox:target{
+	opacity: 1;
+	visibility: visible;
+
+}
+
+
+#delete-app-lightbox:target #delete-app-lightbox-content{
+	transform: translate(0,0);
+	left: 50%;
+	top: 50%;
+
+	margin-left: -150px;
+	margin-top: -100px;
+}
+
+
+/*****  delete app alert button  *****/
+
+.button {
+	display: inline-block;
+	background-color: Crimson;  
+	border-radius: 5px;
+	color: white;
+	padding: .5em;
+	text-decoration: none;
+	width: 90px;
+	text-align: center;
+
+}
+
+.button:focus,
+.button:hover {
+  background-color: FireBrick;
+  color: White;
+}
+
+.alert-opt{
+	text-align: center;
+}
+
+/*** Add new user button ***/
+.add-btn {
+  background-color: #4CAF50; 
+  color: white; 
+  border: 2px solid #4CAF50;
+  font-size: 16px;
+  padding: 14px 40px;
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;  
+}
+
+.add-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+/********** New User Lightbox ***************/
+
+#user-info{
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	min-height: 100vh;
+	opacity: 0;
+	visibility: hidden;
+
+	transition: all ease-in 300ms;
+}
+
+#user-info-content{
+	background-color: #fff;
+	border: 3px inset #1aa3ff;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	position: absolute;
+	left: 50%;
+	width: 500px;
+	min-height: 400px;
+
+	margin-left: -250px; /** negative half of width **/
+
+	transform: translate(0,-200%);
+	transition: transform 200ms ease-out;
+}
+
+#user-info:target{
+	opacity: 1;
+	visibility: visible;
+
+}
+
+
+#user-info:target #user-info-content{
+	transform: translate(0,0);
+	left: 50%;
+	top: 50%;
+
+	margin-left: -250px; /** negative half of width **/
+	margin-top: -200px;  /** negative half of height **/
+}
+
+#user-form{
+	padding: 30px;	
+}
+
+#user-form input{
+	width: 80%;
+	height: 40px;
+	padding: 0px 5%;
+	margin-bottom: 10px;
+	border: none;
+	background-color: #e0e0eb;
+	font-family: arial;
+	font-size: 16px;
+	color: #111;
+	line-height: 40px;
+}
+
+#user-form h3{
+	text-align: center;
+}
+
+#user-form #option{
+	display: grid;
+	justify-content: center;
+	grid-template-columns: auto auto;
+	grid-column-gap: 30px;
+	margin-top: 20px;
+}
+
+#user-form a{
+  color: white;
+  padding: 14px 25px;
+  text-align: center; 
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 15px;
+  width: 70px;
+}
+
+#user-form a.add{
+  background-color: #009933;	
+}
+
+#user-form a.update{
+  background-color: #0066cc;	
+}
+
+#user-form a.add:hover{
+  background-color: #00ff55;
+}
+
+#user-form a.update:hover{
+  background-color: #0080ff;
+}
+
+/***** delete user *****/
+#delete-user{
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	min-height: 100vh;
+	opacity: 0;
+	visibility: hidden;
+
+	transition: all ease-in 300ms;
+}
+
+
+#delete-user-content{
+	background-color: #fff;
+	border: 2px solid #e60000;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	position: absolute;
+	left: 50%;
+	width: 300px;
+	min-height: 200px;
+
+	margin-left: -150px;
+
+	transform: translate(0,-200%);
+	transition: transform 200ms ease-out;
+}
+
+
+#delete-user:target{
+	opacity: 1;
+	visibility: visible;
+
+}
+
+
+#delete-user:target #delete-user-content{
+	transform: translate(0,0);
+	left: 50%;
+	top: 50%;
+
+	margin-left: -150px;
+	margin-top: -100px;
+}
