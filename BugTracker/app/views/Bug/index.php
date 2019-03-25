@@ -44,14 +44,9 @@
 		</div>
 		<!-- end -->
 		<!-- No Access popup message  -->
-		<div data-role="popup" id="access-dialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-	        <div data-role="header" data-theme="a">
-			    <h1>Access Restriction</h1>
-			</div>
-		    <div role="main" class="ui-content">
-		        <p class="ui-title"> You don't have permission to do this action.</p>
-		        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a>
-	        </div>
+		<div data-role="popup" id="access-dialog" class="ui-content" style="max-width:280px">
+			<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+			<p>You don't have permission to perform this action.</p>
 		</div>
 		<!-- end -->		
 

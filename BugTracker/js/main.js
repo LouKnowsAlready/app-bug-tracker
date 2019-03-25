@@ -237,7 +237,8 @@ $(document).ready(function() {
 		var access = $(this).attr('data-access');
 
 		if(access == "0"){
-			$("#access-dialog").popup("open");
+			var pos_id = "#" + id;
+			$("#access-dialog").popup("open",{positionTo: pos_id});
 		}
 		else if(status_id != comp_status_id){
 			$("#status-header").text(header);
