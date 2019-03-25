@@ -1,162 +1,241 @@
-body{
-	/*background-color: #ccc; */
-	background-color: rgb(175, 202, 221);
+html {
+  height: 100%;
 }
 
-a{
-	text-decoration: none;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 100%;
+  background: #F1F1F1;
 }
 
-.main-wrapper{
-	margin: 0 auto;
-	width: 1000px;
-	font-family: arial;
+/* Animation Keyframes */
+@-webkit-keyframes scale_header {
+  0%   {max-height: 0px; margin-bottom: 0px; opacity: 0;}
+  100% {max-height: 117px; margin-bottom: 25px; opacity: 1;}
+}
+@keyframes scale_header {
+  0%   {max-height: 0px; margin-bottom: 0px; opacity: 0;}
+  100% {max-height: 117px; margin-bottom: 25px; opacity: 1;}
 }
 
-header nav{
-	width: 100%;
-	height: 60px;
-	/* background-color: #fff; */
-	background-color: rgb(35, 49, 75);
+@-webkit-keyframes input_opacity {
+  0%   {-webkit-transform: translateY(-10px);transform: translateY(-10px); opacity: 0}
+  100% {-webkit-transform: translateY(0px);transform: translateY(0px); opacity: 1}
 }
 
-header .nav-login{
-	float: right;
+@keyframes input_opacity {
+  0%   {-webkit-transform: translateY(-10px);transform: translateY(-10px); opacity: 0}
+  100% {-webkit-transform: translateY(0px);transform: translateY(0px); opacity: 1}
 }
 
-header .nav-login form{
-	float: left;
-	padding-top: 15px;
+@-webkit-keyframes text_opacity {
+  0% {color: transparent;}
 }
 
-header .nav-login form input{
-	float: left;
-	width: 140px;
-	height: 30px;
-	padding: 0px 10px;
-	margin-right: 10px;
-	border: none;
-	/*background-color: #ccc; */
-	font-family: arial;
-	font-size: 14px;
-	color: #111;
-	line-height: 30px;
+@keyframes text_opacity {
+  0% {color: transparent;}
 }
 
-header .nav-login form button{
-	float: left;
-	width: 60px;
-	height: 30px;
-	margin-right: 10px;
-	border: none;
-	background-color: #f3f3f3;
-	font-family: arial;
-	font-size: 14px;
-	color: #111;
-	cursor: pointer;
+@-webkit-keyframes error_before {
+  0%   {height: 5px; background: rgba(0, 0, 0, 0.156); color: transparent;}
+  10%  {height: 117px; background: #FFFFFF; color: #C62828}
+  90%  {height: 117px; background: #FFFFFF; color: #C62828}
+  100% {height: 5px; background: rgba(0, 0, 0, 0.156); color: transparent;}
 }
 
-header .nav-login form button:hover{
-	background-color: #ccc;
+@keyframes error_before {
+  0%   {height: 5px; background: rgba(0, 0, 0, 0.156); color: transparent;}
+  10%  {height: 117px; background: #FFFFFF; color: #C62828}
+  90%  {height: 117px; background: #FFFFFF; color: #C62828}
+  100% {height: 5px; background: rgba(0, 0, 0, 0.156); color: transparent;}
 }
 
-header .nav-login a{
-	display: block;
-	width: 60px;
-	height: 60px;
-	border: none;
-	float: left;
-	background-color: #fff;
-	font-family: arial;
-	font-size: 16px;
-	color: #111;
-	line-height: 63px;
-	cursor: pointer;
+
+/* Login Form */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 340px;
+  height: auto;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
-.main-container{
-	padding-top: 40px;
+.login-container img {
+  width: 200px;
+  margin: 0 0 20px 0;
 }
 
-.main-container h2{
-	font-family: 'Nunito', sans-serif;
-	font-size: 40px;
-	color: #464545;
-	line-height: 50px;
-	text-align: center;
+.login-container p {
+  align-self: flex-start;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.5);
 }
 
-/* signup form */
-
-.signup-form{
-	width: 400px;
-	margin: 0 auto;
-	padding-top: 30px;
+.login-container p a {
+  color: rgba(0, 0, 0, 0.4);
 }
 
-.signup-form input{
-	width: 90%;
-	height: 40px;
-	padding: 0px 5%;
-	margin-bottom: 10px;
-	border: none;
-	background-color: #fff;
-	font-family: arial;
-	font-size: 16px;
-	color: #111;
-	line-height: 40px;
+.login {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  margin: 0 0 10px 0;
+  box-sizing: border-box;
+  border-radius: 3px;
+  background: #FAFAFA;
+  overflow: hidden;
+  -webkit-animation: input_opacity 0.2s cubic-bezier(.55, 0, .1, 1);
+          animation: input_opacity 0.2s cubic-bezier(.55, 0, .1, 1);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
-.signup-form button{
-	display: block;
-	margin: 0 auto;
-	width: 30%;
-	height: 40px;
-	border: none;
-	background-color: #222;
-	font-family: arial;
-	font-size: 16px;
-	color: #fff;
-	cursor: pointer;
+.login > header {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+  margin: -10px -10px 25px -10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #009688;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  color: #FAFAFA;
+  -webkit-animation: scale_header 0.6s cubic-bezier(.55, 0, .1, 1), text_opacity 1s cubic-bezier(.55, 0, .1, 1);
+          animation: scale_header 0.6s cubic-bezier(.55, 0, .1, 1), text_opacity 1s cubic-bezier(.55, 0, .1, 1);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+              0px 1px 5px 0px rgba(0, 0, 0, 0.12),
+              0px 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
-.signup-form button:hover{
-	background-color: #111;
+.login > header:before {
+  content: '';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  padding: 10px;
+  margin: -10px 0 0 -10px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.156);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  color: transparent;
+  z-index: 5;
 }
 
-.signup-form #note{
-	color: red;
-	margin-bottom: 5px;
+.login.error_1 > header:before,
+.login.error_2 > header:before {
+  -webkit-animation: error_before 3s cubic-bezier(.55, 0, .1, 1);
+          animation: error_before 3s cubic-bezier(.55, 0, .1, 1);
 }
 
-/********** Begin - Error message **********/
-
-/* The alert message box */
-.alert {
-  padding: 20px;
-  background-color: #f44336; /* Red */
-  color: white;
-  margin-bottom: 15px;
-  width: 400px;
-  margin: auto;
-  font-family: arial;
+.login.error_1 > header:before {
+  content: 'User not found';
 }
 
-/* The close button */
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
+.login.error_2 > header:before {
+  content: 'Invalid password';
+}
+
+.login > header h2 {
+  margin: 50px 0 10px 0;
+}
+
+.login > header h4 {
+  font-size: 0.7em;
+  -webkit-animation: text_opacity 1.5s cubic-bezier(.55, 0, .1, 1);
+          animation: text_opacity 1.5s cubic-bezier(.55, 0, .1, 1);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Form */
+.login-form {
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+
+/* Inputs */
+.login-input {
+  position: relative;
+  width: 100%;
+  padding: 10px 5px;
+  margin: 0 0 25px 0;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  background: transparent;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  opacity: 1;
+  -webkit-animation: input_opacity 0.8s cubic-bezier(.55, 0, .1, 1);
+          animation: input_opacity 0.8s cubic-bezier(.55, 0, .1, 1);
+  transition: border-bottom 0.2s cubic-bezier(.55, 0, .1, 1);
+}
+
+.login-input:focus {
+  outline: none;
+  border-bottom: 2px solid #E37F00;
+}
+
+
+/* Submit Button */
+.submit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: relative;
+  padding: 10px;
+  margin: 35px -25px -25px -25px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.login-button {
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #E37F00;
   cursor: pointer;
+  opacity: 1;
+  -webkit-animation: input_opacity 0.8s cubic-bezier(.55, 0, .1, 1);
+          animation: input_opacity 0.8s cubic-bezier(.55, 0, .1, 1);
+  transition: background 0.2s ease-in-out;
 }
 
-/* When moving the mouse over the close button */
-.closebtn:hover {
-  color: black;
+.login-button.raised {
+  padding: 5px 10px;
+  color: #FAFAFA;
+  background: #E37F00;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.137255),
+              0px 1px 5px 0px rgba(0, 0, 0, 0.117647),
+              0px 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
-/********** End   - Error message **********/
+.login-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
 
+.login-button.raised:hover {
+  background: #FDAB43;
+}
+
+
+#error-msg{
+  visibility: hidden;
+}

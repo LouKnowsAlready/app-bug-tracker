@@ -1,5 +1,9 @@
 <?php
+	if(!isset($_SESSION))
+		session_start();
 
+	$user_session_id = 0;
+	$user_session = [];
 	if(isset($_SESSION['uid'])){
 		$user_session_id = $_SESSION['uid'];
 		$user_session = User::get_user_details($user_session_id);
@@ -36,8 +40,10 @@
 			<div id="user-panel" data-role="collapsible" data-collapsed="false">
 				<h3> Users </h3>
 				<small>List of users that can be selected within the project and their corresponding permissions.</small>
+				<?php if(User::check_number_of_users() > 0) { ?>
 				<div>
 					<table id="user_list">
+						<?php if(!isset($_SESSION['admin'])){ ?>
 						<tr>
 							<td>
 								<input type="hidden" name='users[new][]' <?php echo "value='{$user_session_id}'"; ?> />
@@ -61,9 +67,12 @@
 							<td>
 								<a id="<?php echo $uniq_id; ?>" class='ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext' data-item='user' data-rel='popup' data-position-to='window' data-transition='pop' href='#popupDialog' style="pointer-events: none;">Remove</a>
 							</td>
+						</tr>
+						<?php } ?>
 					</table>
 				</div>
 				<input type="button" id="add_user" data-inline="true" value="Add User">
+				<?php } ?>
 			</div>
 			<div id="tag-panel" data-role="collapsible" data-collapsed="false">
 				<h3> Tags </h3>

@@ -10,14 +10,18 @@
 	?>
 
 	<table>
+
 		<tr>
 			<th>
 				<a class="add-btn" id="new-user">New</a>
+				<a class="add-btn" id="del-all">Delete Selected</a>
 			</th>
+		<!--	
 			<th>
-				<a class="add-btn" id="del-all">Delete All</a>
+				<a class="add-btn" id="del-all">Delete Selected</a>
 			</th>
 		</tr>
+		-->
 		<tr>
 			<th><input type="checkbox" class="selectall" /></th>
 			<th> Username </th>
@@ -38,6 +42,7 @@
 			}
 		?>		
 	</table>
+
 </div>
 
 

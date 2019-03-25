@@ -1,4 +1,5 @@
 <?php
+	$project_id = 0;
 	if(isset($data))
 		$project_id = $data;
 	$project = new Project($project_id);
@@ -42,6 +43,7 @@
 			<div id="user-panel" data-role="collapsible" data-collapsed="false">
 				<h3> Users </h3>
 				<small>List of users that can be selected within the project and their corresponding permissions.</small>
+				<?php if(User::check_number_of_users() > 0) { ?>
 				<div>
 					<table id="user_list">
 						<?php
@@ -63,6 +65,7 @@
 					</table>
 				</div>
 				<input type="button" id="add_user" data-inline="true" value="Add User">
+				<?php }  ?>
 			</div>
 
 

@@ -83,8 +83,25 @@ class ProjectController extends Controller{
 				$users = $_POST['users']['new'];
 				$roles = $_POST['roles']['new'];
 
+				// filter out users with multiple roles. Retain role with highest permission
+				$filtered_users = [];
 				foreach($users as $index => $user){
-					$ProjectUser_obj->create(array('project_id' => $id, 'user_id' => $user, 'role_id' => $roles[$index]), 'project_users');
+					$r = $roles[$index];
+					$u = $user;
+					unset($users[$index]);
+					foreach($users as $index => $user){
+						if($user == $u){
+							if($roles[$index] > $r)
+								$r = $roles[$index];
+							unset($users[$index]);
+						}
+					}
+					array_push($filtered_users,array("user_id" => $u, "role_id" => $r));
+				}
+
+				$filtered_users = array_unique($filtered_users, SORT_REGULAR);
+				foreach($filtered_users as $user){
+					$ProjectUser_obj->create(array('project_id' => $id, 'user_id' => $user['user_id'], 'role_id' => $user['role_id']), 'project_users');
 				}
 			}
 
@@ -176,9 +193,37 @@ class ProjectController extends Controller{
 		if(isset($data['users']['new'])){
 			$new_users = $data['users']['new'];
 			$new_roles = $data['roles']['new'];
+
+			// remove newly added users that are already created.
+			foreach($new_users as $index => $new_user){
+				foreach($users as $current_user){
+					if($new_user == $current_user){
+						unset($new_users[$index]);
+						break;
+					}
+				}
+			}
+
+			// filter out users with multiple roles. Retain role with highest permission
+			$filtered_users = [];
 			foreach($new_users as $index => $user){
-				$role = $new_roles[$index];
-				$proj_user = array("project_id"=>$project, "user_id"=> $user, "role_id"=> $role);
+				$r = $new_roles[$index];
+				$u = $user;
+				unset($new_users[$index]);
+				foreach($new_users as $index => $user){
+					if($user == $u){
+						if($new_roles[$index] > $r)
+							$r = $new_roles[$index];
+						unset($new_users[$index]);
+					}
+				}
+				array_push($filtered_users,array("user_id" => $u, "role_id" => $r));
+			}
+				
+			$filtered_users = array_unique($filtered_users, SORT_REGULAR);
+
+			foreach($filtered_users as $user){
+				$proj_user = array("project_id"=>$project, "user_id"=> $user['user_id'], "role_id"=> $user['role_id']);
 				$ProjectUser_obj->create($proj_user, 'project_users');
 			}
 		}

@@ -11,6 +11,19 @@ class User extends Model{
 		$this->last_name = $last_name;
 	}
 
+	public static function check_number_of_users(){
+		$db = new DbConnect();
+		$conn = $db->connect();
+
+		$sql = "SELECT COUNT(id) as counter FROM users";
+		$result = mysqli_query($conn, $sql);
+		$data = mysqli_fetch_assoc($result);
+		mysqli_free_result($result);
+
+		mysqli_close($conn);
+		return $data;		
+	}
+
 	public static function get_all_users(){
 		//include dirname(__DIR__) . '/core/dbconnect.php';
 		$db = new DbConnect();

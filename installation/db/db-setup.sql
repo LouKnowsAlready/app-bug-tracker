@@ -149,7 +149,6 @@ CREATE TABLE `admin` (
 
 
 INSERT INTO `roles` (`id`, `role_name`) VALUES
-(1, 'Admin'),
-(2, 'Browser'),
-(3, 'Developer'),
-(4, 'Project Manager');
+(1, 'Browser'),
+(2, 'Developer'),
+(3, 'Project Manager');

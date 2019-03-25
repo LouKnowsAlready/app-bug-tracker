@@ -39,12 +39,12 @@ class LoginController extends Controller{
 				if($uid['overall_role'] == 'admin'){
 					$_SESSION['admin'] = 1;
 				}
-				echo 'Success';
+				header('Location: /');
 			}else{
-				echo 'Invalid password';
+				header('Location: /login?error=Invalid password');
 			}
 		}else{
-			echo 'User not found';
+			header("Location: /login?error=User not found");
 		}
 	}
 
