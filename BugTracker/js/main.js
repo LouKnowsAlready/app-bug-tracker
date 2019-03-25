@@ -234,8 +234,12 @@ $(document).ready(function() {
 		var header = "Update Status";
 		var msg = "Set bug status to " + comp_status + "?";
 		var id = $(this).attr('id');
+		var access = $(this).attr('data-access');
 
-		if(status_id != comp_status_id){
+		if(access == "0"){
+			$("#access-dialog").popup("open");
+		}
+		else if(status_id != comp_status_id){
 			$("#status-header").text(header);
 			$("#status-msg").text(msg);
 			$("#uncheck").attr("data-id", id);

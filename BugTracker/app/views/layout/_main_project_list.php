@@ -13,12 +13,24 @@
 
 ?>
 
-<?php foreach ($projects as $project) { ?>
+<?php 
+	foreach ($projects as $project) {
+		if(isset($_SESSION['admin'])){
+			$has_bug_access = 1;
+			$has_project_access = 1;
+		}else{
+			$user_role = User::user_role($user_session_id, $project['id']);
+			$has_bug_access = Bug::has_bug_func_access($user_role['role_name']);
+			$has_project_access = Project::has_project_func_access($user_role['role_name']); 
+		}
+?>
 
 	<div data-role="collapsible" class="project-block" <?php echo expand($data_project_id,$project['id']);  ?> >
 		<h3 class="project-heading"> 
 			<?php echo $project['project_name'];  ?>
-			<img class="edit-project" <?php echo "data-project='{$project['id']}'" ?> src="/BugTracker/Icons/settings.png" />
+			<?php if($has_project_access){ ?>
+				<img class="edit-project" <?php echo "data-project='{$project['id']}'" ?> src="/BugTracker/Icons/settings.png" />
+			<?php } ?>
 		</h3>
 		<?php 
 			$users = ProjectUser::get_project_users_with_bugs($project['id']);
@@ -42,7 +54,14 @@
 				</div>
 			</div>
 		<?php }   ?>
-		<div class="add_bug"> <a href="#" rel="external" data-url="/bug/ajax_new/<?php echo $project['id'] ?>" class="ui-btn ui-btn-icon-left ui-icon-plus new_bug"> New Bug </a> </div>	
+		
+		<?php
+			if($has_bug_access) { 
+		?>
+			<div class="add_bug"> 
+				<a href="#" rel="external" data-url="/bug/ajax_new/<?php echo $project['id'] ?>" class="ui-btn ui-btn-icon-left ui-icon-plus new_bug"> New Bug </a> 
+			</div>	
+		<?php } ?>
 	</div> 
 
 <?php }  ?>

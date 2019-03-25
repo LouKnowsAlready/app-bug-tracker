@@ -7,10 +7,10 @@ class SiteAdminController extends Controller{
 	public function index(){
 		session_start();
 
-		if(isset($_SESSION['admin_uid']))
+		if(isset($_SESSION['admin']))
 			$this->render_view('', $this->view_name,'index');
 		else
-			header("Location: /site-admin/login");
+			header("Location: /");
 	}
 
 	public function view_users(){
@@ -18,9 +18,11 @@ class SiteAdminController extends Controller{
 		$this->render_view('', $this->view_name,'view-users', $users);
 	}
 
+	/*
 	public function login(){
 		$this->render_view('', $this->view_name,'login');
 	}
+
 
 	public function start_session(){
 		session_start();
@@ -46,11 +48,13 @@ class SiteAdminController extends Controller{
 		}
 	}
 
+
 	public function destroy_session(){
 		session_start();
 		unset($_SESSION['admin_uid']);
 		header('Location: /site-admin');
 	}
+	*/
 
 	public function edit(){
 		$admin = SiteAdmin::get_admin();

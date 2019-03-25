@@ -13,13 +13,22 @@ class Project extends Model{
 		$db = new DbConnect();
 		$conn = $db->connect();
 
-		$sql = "SELECT p.id, p.project_name FROM projects p LEFT JOIN project_users pu on pu.project_id = p.id WHERE pu.user_id = {$user_id}";
+		$sql = "SELECT p.id, p.project_name FROM projects p LEFT JOIN project_users pu on pu.project_id = p.id WHERE (pu.user_id = {$user_id} OR {$user_id} = 0)";
 		$result = mysqli_query($conn, $sql);
 		$data = mysqli_fetch_all($result,MYSQLI_ASSOC);
 		mysqli_free_result($result);
 
 		mysqli_close($conn);
 		return $data;
+	}
+
+	public static function has_project_func_access($role_name){
+		$has_access = 0;
+
+		if($role_name == "Project Manager" || $role_name == 'Admin')
+			$has_access = 1;
+
+		return $has_access;
 	}
 
 	private function get_project_name($project_id){

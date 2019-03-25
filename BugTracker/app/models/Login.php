@@ -8,7 +8,7 @@ class Login extends Model{
 
 		$is_exist = 0;
 
-		$sql = "SELECT 1 FROM users WHERE user_name = '{$username}'";
+		$sql = "SELECT 1 FROM users WHERE user_name = '{$username}' UNION SELECT 1 FROM admin WHERE user_name = '{$username}'";
 		$result = mysqli_query($conn, $sql);
 		if(mysqli_num_rows($result))
 			$is_exist = 1;
@@ -23,7 +23,7 @@ class Login extends Model{
 		$db = new DbConnect();
 		$conn = $db->connect();
 
-		$sql = "SELECT id FROM users WHERE user_name = '{$user_name}' AND password = '{$password}'";
+		$sql = "SELECT id, 'non-admin' as overall_role FROM users WHERE user_name = '{$user_name}' AND password = '{$password}' UNION SELECT id, 'admin' as overall_role FROM admin WHERE user_name = '{$user_name}' AND password = '{$password}'";
 		$result = mysqli_query($conn, $sql);
 		$data = mysqli_fetch_assoc($result);
 

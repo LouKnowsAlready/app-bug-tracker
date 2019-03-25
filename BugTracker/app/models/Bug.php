@@ -115,4 +115,13 @@ class Bug extends Model{
 		return $data;
 	}
 
+	public static function has_bug_func_access($role_name){
+		$has_access = 0;
+
+		if($role_name != "Browser")
+			$has_access = 1;
+
+		return $has_access;
+	}
+
 }

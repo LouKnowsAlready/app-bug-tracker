@@ -55,4 +55,19 @@ class User extends Model{
 		mysqli_close($conn);
 		return $is_exist;		
 	}
+
+	public static function user_role($user_id, $project_id){
+		$db = new DbConnect();
+		$conn = $db->connect();
+
+		$sql = "SELECT r.id, r.role_name FROM project_users pu LEFT JOIN roles r on r.id = pu.role_id WHERE pu.user_id = {$user_id} AND pu.project_id = {$project_id} ORDER BY r.id desc LIMIT 1";
+
+		$result = mysqli_query($conn, $sql);
+		$data = mysqli_fetch_assoc($result);
+		mysqli_free_result($result);
+
+		mysqli_close($conn);
+		return $data;
+	}
+		
 }

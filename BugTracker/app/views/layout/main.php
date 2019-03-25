@@ -1,10 +1,15 @@
 <?php
-	session_start();
+	if(!isset($_SESSION))
+		session_start();
 
 	$user_session_id = 0;
 	$user_session = [];
 
-	if(isset($_SESSION['uid'])){
+	if(isset($_SESSION['admin'])){
+		$name = SiteAdmin::get_admin();
+		$user_session['first_name'] = $name['user_name'];
+	}
+	elseif(isset($_SESSION['uid'])){
 		$user_session_id = $_SESSION['uid'];
 		$user_session = User::get_user_details($user_session_id);
 	}else{
@@ -36,9 +41,12 @@
 					<!-- Insert code here -->
 						<div data-role="collapsibleset" class="side-bar">
 							<?php include('_main_project_list.php'); ?>
+
+							<?php if(isset($_SESSION['admin'])){  ?>
 							<div class="project-block">
 							    <a href="/project/new" rel="external" class="ui-btn">New Project</a>
-							</div>    					    		    
+							</div> 
+							<?php }  ?>  					    		    
 						</div>
 					<!-- End of block -->						
 					</div>

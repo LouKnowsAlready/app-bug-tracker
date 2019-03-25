@@ -43,7 +43,7 @@
 		
 
 				<div class="admin-options">
-					<a href="/site-admin/destroy_session" id="admin-logout">
+					<a href="/login/destroy_session" id="admin-logout">
 						<img src="/BugTracker/Icons/logout.jpg" />
 						<p>Log Out</p>
 					</a>

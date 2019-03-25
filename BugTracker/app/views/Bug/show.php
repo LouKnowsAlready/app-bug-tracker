@@ -1,4 +1,11 @@
 <?php
+if(!isset($_SESSION))
+		session_start();
+$user_session_id = 0;
+if(isset($_SESSION['uid']))
+	$user_session_id = $_SESSION['uid'];
+$user_role = User::user_role($user_session_id, $data['project_id']);
+$has_access = Bug::has_bug_func_access($user_role['role_name']);
 
 $project = new Project($data['project_id']);
 $users = ProjectUser::get_project_users($project->id);
@@ -16,9 +23,11 @@ function selected($item1, $item2){
 
 <div id="project-settings">
 <div id="action">
-	<a rel="external" href="<?php echo "/bug/index/{$bug->project_id}/$bug->assigned_to/$bug->status_id"; ?>"> Back </a> |
-	<a href="#" id="edit"> Edit </a> |
-	<a rel="external" href="<?php echo "/bug/delete/{$bug->project_id}/{$bug->assigned_to}/{$bug->status_id}/{$bug->id}"; ?>"> Delete </a>
+	<a rel="external" href="<?php echo "/bug/index/{$bug->project_id}/$bug->assigned_to/$bug->status_id"; ?>"> Back </a>
+	<?php if($has_access) { ?>
+		| <a href="#" id="edit"> Edit </a>
+		| <a rel="external" href="<?php echo "/bug/delete/{$bug->project_id}/{$bug->assigned_to}/{$bug->status_id}/{$bug->id}"; ?>"> Delete </a>
+	<?php } ?>
 </div>
 <h3> Project Name: <?php echo $project->project_name ?> </h3>
 <hr>

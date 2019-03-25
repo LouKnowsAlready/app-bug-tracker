@@ -36,6 +36,9 @@ class LoginController extends Controller{
 			$uid = $Login_obj->verify_credentials($user_name, $password);
 			if($uid['id']){
 				$_SESSION['uid'] = $uid['id'];
+				if($uid['overall_role'] == 'admin'){
+					$_SESSION['admin'] = 1;
+				}
 				header('Location: /');
 			}else{
 				header('Location: /login?error=Invalid password');
@@ -52,6 +55,8 @@ class LoginController extends Controller{
 		session_destroy();
 		*/
 		unset($_SESSION['uid']);
+		if(isset($_SESSION['admin']))
+			unset($_SESSION['admin']);
 		header('Location: /');
 	}
 

@@ -7,17 +7,42 @@ class ProjectController extends Controller{
 
 	public function __construct(){}
 
+	private function has_access($project_id=0){
+		if(!isset($_SESSION))
+			session_start();
+
+		$has_project_access = 0;
+		$user_session_id = $_SESSION['uid'];
+
+		if(isset($_SESSION['admin'])){
+			$has_project_access = 1;
+		}else{
+			$user_role = User::user_role($user_session_id, $project_id);
+			$has_project_access = Project::has_project_func_access($user_role['role_name']); 
+		}
+
+		return $has_project_access;
+	}
+
 	public function index(){		
 		$this->render_view($this->layout, $this->view_name,'index');
 	}
 
 	public function new(){
-		$this->render_view($this->layout, $this->view_name,'new');
+		if(!isset($_SESSION))
+			session_start();
+		if(isset($_SESSION['admin']))
+			$this->render_view($this->layout, $this->view_name,'new');
+		else
+			header('Location: /');
 	}
 
 	public function edit($project_id){
-		//include '../app/views/Project/edit.php';
-		$this->render_view($this->layout, $this->view_name,'edit',$project_id);
+		$has_access = $this->has_access($project_id);
+		if($has_access)
+			$this->render_view($this->layout, $this->view_name,'edit',$project_id);
+		else
+			header('Location: /');
 	}
 
 	public function delete($project_id){

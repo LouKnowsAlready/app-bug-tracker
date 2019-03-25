@@ -1,8 +1,16 @@
 <?php
+	if(!isset($_SESSION))
+		session_start();
+	$user_session_id = 0;
+	if(isset($_SESSION['uid']))
+		$user_session_id = $_SESSION['uid'];
 	$bugs = Bug::get_users_bug_per_status($data['project_id'], $data['user_id'], $data['status_id']);
 	$user = User::get_user_details($data['user_id']);
 	$status = Status::get_status_details($data['status_id']);
 	$completed_status = Status::get_last_status_per_project($data['project_id']);
+	$user_role = User::user_role($user_session_id, $data['project_id']);
+	$has_access = Bug::has_bug_func_access($user_role['role_name']);
+
 	$check_icon = 'uncheck.png';
 	if($data['status_id'] == $completed_status['id'])
 		$check_icon = 'checked.png';
@@ -35,6 +43,17 @@
 	        </div>
 		</div>
 		<!-- end -->
+		<!-- No Access popup message  -->
+		<div data-role="popup" id="access-dialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+	        <div data-role="header" data-theme="a">
+			    <h1>Access Restriction</h1>
+			</div>
+		    <div role="main" class="ui-content">
+		        <p class="ui-title"> You don't have permission to do this action.</p>
+		        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a>
+	        </div>
+		</div>
+		<!-- end -->		
 
 		<ul id="sort-list" data-role="listview" data-split-icon="three-dots" data-filter="true" data-filter-placeholder="Search bugs..." data-inset="true">
 		    <?php
@@ -43,7 +62,7 @@
 		    		echo '
 		    				<li class="bug-check-container" data-index="' . $bug['id'] . '" data-position="' . $bug['position'] . '" data-priority="' . $bug['priority_weight'] . '" data-icon="false">
 		    					<a href="#">
-        							<img id="'. $bug['id'] .'" src="/BugTracker/Icons/' . $check_icon . '" data-id="' . $bug['id'] . '" class="pre-uncheck ui-li-icon ui-corner-none">
+        							<img id="'. $bug['id'] .'" src="/BugTracker/Icons/' . $check_icon . '" data-id="' . $bug['id'] . '" class="pre-uncheck ui-li-icon ui-corner-none" data-access="'. $has_access .'">
     								<h2 class="bug-label">' . $bug['bug_name'] . '</h2>
     								<span class="bug-priority-color" style="background-color: ' . $bug['priority_color'] . ';">&nbsp;</span>
  								</a>
